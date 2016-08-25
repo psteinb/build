@@ -429,6 +429,16 @@ rule setup-fpic ( targets * : sources * : properties * )
             OPTIONS on $(targets) += -fPIC ;
         }
     }
+
+    if $(link) = static
+    {
+        local target = [ feature.get-values target-os : $(properties) ] ;
+
+        if ! $(target) in cygwin windows
+        {
+            OPTIONS on $(targets) += -fPIC ;
+        }
+    }
 }
 
 rule setup-address-model ( targets * : sources * : properties * )
